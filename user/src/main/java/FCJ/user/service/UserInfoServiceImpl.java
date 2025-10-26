@@ -1,6 +1,5 @@
 package FCJ.user.service;
 
-import FCJ.user.dto.EmptyUserInfoCreation;
 import FCJ.user.dto.UserInfoCreation;
 import FCJ.user.dto.UserInfoDTO;
 import FCJ.user.exception.UserInfoNotFoundException;
@@ -9,9 +8,7 @@ import FCJ.user.repository.UserInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,9 +17,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     private final UserInfoRepository userInfoRepository;
 
     @Override
-    public UserInfoDTO createUserInfo(UserInfoCreation userInfoCreation) {
+    public UserInfoDTO createUserInfo(UUID userId, UserInfoCreation userInfoCreation) {
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserId(userInfoCreation.getUserId());
+        userInfo.setUserId(userId);
         userInfo.setFullName(userInfoCreation.getFullName());
         userInfo.setAvatarUrl(userInfoCreation.getAvatarUrl());
         userInfo.setPhoneNumber(userInfoCreation.getPhoneNumber());
@@ -33,9 +30,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfoDTO createEmptyUserInfo(EmptyUserInfoCreation emptyUserInfoCreation) {
+    public UserInfoDTO createEmptyUserInfo(UUID userId) {
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserId(emptyUserInfoCreation.getUserId());
+        userInfo.setUserId(userId);
         // All other fields (fullName, avatarUrl, phoneNumber, address) remain null
 
         UserInfo savedUserInfo = userInfoRepository.save(userInfo);
@@ -50,18 +47,10 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public List<UserInfoDTO> getAllUserInfo() {
-        return userInfoRepository.findAll().stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public UserInfoDTO updateUserInfo(UUID id, UserInfoCreation userInfoCreation) {
         UserInfo userInfo = userInfoRepository.findById(id)
                 .orElseThrow(() -> new UserInfoNotFoundException("UserInfo not found with id: " + id));
 
-        userInfo.setUserId(userInfoCreation.getUserId());
         userInfo.setFullName(userInfoCreation.getFullName());
         userInfo.setAvatarUrl(userInfoCreation.getAvatarUrl());
         userInfo.setPhoneNumber(userInfoCreation.getPhoneNumber());
@@ -76,9 +65,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfo = userInfoRepository.findById(id)
                 .orElseThrow(() -> new UserInfoNotFoundException("UserInfo not found with id: " + id));
 
-        if (userInfoCreation.getUserId() != null) {
-            userInfo.setUserId(userInfoCreation.getUserId());
-        }
         if (userInfoCreation.getFullName() != null) {
             userInfo.setFullName(userInfoCreation.getFullName());
         }

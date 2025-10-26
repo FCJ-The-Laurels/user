@@ -1,6 +1,5 @@
 package FCJ.user.controller;
 
-import FCJ.user.dto.EmptyUserInfoCreation;
 import FCJ.user.dto.UserInfoCreation;
 import FCJ.user.dto.UserInfoDTO;
 import FCJ.user.service.UserInfoService;
@@ -16,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -28,28 +26,33 @@ public class UserInfoController {
     private final UserInfoService userInfoService;
 
     @PostMapping
-    @Operation(summary = "Create new user info", description = "Creates a new user information record with all fields")
+    @Operation(summary = "Create new user info", description = "Creates a new user information record with all fields. User ID is extracted from AWS API Gateway header.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User info created successfully",
                     content = @Content(schema = @Schema(implementation = UserInfoDTO.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    public ResponseEntity<UserInfoDTO> createUserInfo(@RequestBody UserInfoCreation userInfoCreation) {
-        UserInfoDTO created = userInfoService.createUserInfo(userInfoCreation);
+    public ResponseEntity<UserInfoDTO> createUserInfo(
+            @Parameter(description = "User ID from AWS API Gateway", required = true)
+            @RequestHeader("X-User-Id") String userId,
+            @RequestBody UserInfoCreation userInfoCreation) {
+        UserInfoDTO created = userInfoService.createUserInfo(UUID.fromString(userId), userInfoCreation);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PostMapping("/empty")
-    @Operation(summary = "Create empty user info", description = "Creates an empty user information record with only userId")
+    @Operation(summary = "Create empty user info", description = "Creates an empty user information record. User ID is extracted from AWS API Gateway header.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Empty user info created successfully",
                     content = @Content(schema = @Schema(implementation = UserInfoDTO.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    public ResponseEntity<UserInfoDTO> createEmptyUserInfo(@RequestBody EmptyUserInfoCreation emptyUserInfoCreation) {
-        UserInfoDTO created = userInfoService.createEmptyUserInfo(emptyUserInfoCreation);
+    public ResponseEntity<UserInfoDTO> createEmptyUserInfo(
+            @Parameter(description = "User ID from AWS API Gateway", required = true)
+            @RequestHeader("X-User-Id") String userId) {
+        UserInfoDTO created = userInfoService.createEmptyUserInfo(UUID.fromString(userId));
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
@@ -66,17 +69,6 @@ public class UserInfoController {
             @PathVariable UUID id) {
         UserInfoDTO userInfo = userInfoService.getUserInfoById(id);
         return ResponseEntity.ok(userInfo);
-    }
-
-    @GetMapping
-    @Operation(summary = "Get all user info", description = "Retrieves all user information records")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "List of user info retrieved successfully"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
-    public ResponseEntity<List<UserInfoDTO>> getAllUserInfo() {
-        List<UserInfoDTO> userInfoList = userInfoService.getAllUserInfo();
-        return ResponseEntity.ok(userInfoList);
     }
 
     @PutMapping("/{id}")
