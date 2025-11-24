@@ -71,6 +71,21 @@ public class UserInfoController {
         return ResponseEntity.ok(userInfo);
     }
 
+    @GetMapping("/by-user-id")
+    @Operation(summary = "Get user info by User ID", description = "Retrieves user information by User ID from AWS API Gateway header")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User info found",
+                    content = @Content(schema = @Schema(implementation = UserInfoDTO.class))),
+            @ApiResponse(responseCode = "404", description = "User info not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<UserInfoDTO> getUserInfoByUserId(
+            @Parameter(description = "User ID from AWS API Gateway", required = true)
+            @RequestHeader("X-User-Id") String userId) {
+        UserInfoDTO userInfo = userInfoService.getUserInfoByUserId(UUID.fromString(userId));
+        return ResponseEntity.ok(userInfo);
+    }
+
     @PutMapping("/{id}")
     @Operation(summary = "Update user info", description = "Updates all fields of an existing user information record")
     @ApiResponses(value = {

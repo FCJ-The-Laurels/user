@@ -9,6 +9,7 @@ public interface UserInfoService {
     UserInfoDTO createUserInfo(UUID userId, UserInfoCreation userInfoCreation);
     UserInfoDTO createEmptyUserInfo(UUID userId);
     UserInfoDTO getUserInfoById(UUID id);
+    UserInfoDTO getUserInfoByUserId(UUID userId);
     UserInfoDTO updateUserInfo(UUID id, UserInfoCreation userInfoCreation);
     UserInfoDTO patchUserInfo(UUID id, UserInfoCreation userInfoCreation);
     void deleteUserInfo(UUID id);
