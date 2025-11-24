@@ -19,6 +19,7 @@ public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @Column(nullable = false, unique = true)
     private UUID userId;
     private String fullName;
     private String avatarUrl;

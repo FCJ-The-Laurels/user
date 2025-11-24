@@ -9,5 +9,5 @@ import java.util.UUID;
 public interface UserInfoRepository extends JpaRepository<UserInfo, UUID> {
     Optional<UserInfo> findById(UUID id);
     Optional<UserInfo> findByFullNameIsContainingIgnoreCase(String fullName);
-
+    Optional<UserInfo> findByUserId(UUID userId);
 }
