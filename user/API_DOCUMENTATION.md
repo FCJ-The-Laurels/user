@@ -1,7 +1,144 @@
 # User Info API Documentation
 
 ## Overview
-This API provides endpoints for managing user information records. All creation endpoints require authentication via AWS API Gateway and extract the user ID from HTTP headers.
+This API provides endpoints for managing user information records and monitoring service health. All creation endpoints require authentication via AWS API Gateway and extract the user ID from HTTP headers.
+
+**Base URL:** `http://localhost:8081`
+
+**Service Ports:**
+- REST API: `8081`
+- gRPC: `9090`
+
+---
+
+## Health Check Endpoints
+
+### 1. Ping Health Check
+Simple health check endpoint compatible with AWS API Gateway and load balancers.
+
+- **URL:** `/api/health/ping`
+- **Method:** `GET`
+- **Headers:** None required
+
+#### Response
+**Status Code:** `200 OK`
+
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "service": "user-service",
+  "version": "1.0.0"
+}
+```
+
+**Error Response (Service Down)**
+**Status Code:** `503 Service Unavailable`
+
+---
+
+### 2. Detailed Health Check
+Returns comprehensive health information including all component statuses (database, etc.).
+
+- **URL:** `/api/health/detailed`
+- **Method:** `GET`
+- **Headers:** None required
+
+#### Response
+**Status Code:** `200 OK`
+
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "service": "user-service",
+  "version": "1.0.0",
+  "components": {
+    "db": {
+      "status": "UP",
+      "database": "PostgreSQL",
+      "validationQuery": "isValid()"
+    }
+  }
+}
+```
+
+**Error Response (Service Down)**
+**Status Code:** `503 Service Unavailable`
+
+---
+
+### 3. Liveness Probe
+Kubernetes/ECS liveness probe. Indicates whether the service should be restarted (frozen process detection).
+
+- **URL:** `/api/health/live`
+- **Method:** `GET`
+- **Headers:** None required
+
+#### Response
+**Status Code:** `200 OK`
+
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "probe": "liveness"
+}
+```
+
+**Error Response (Service Frozen)**
+**Status Code:** `503 Service Unavailable`
+
+---
+
+### 4. Readiness Probe
+Kubernetes/ECS readiness probe. Indicates whether the service is ready to accept traffic.
+
+- **URL:** `/api/health/ready`
+- **Method:** `GET`
+- **Headers:** None required
+
+#### Response
+**Status Code:** `200 OK`
+
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "probe": "readiness"
+}
+```
+
+**Error Response (Not Ready)**
+**Status Code:** `503 Service Unavailable`
+
+---
+
+### 5. Combined Health Status
+General health endpoint returning combined status for AWS API Gateway and monitoring services.
+
+- **URL:** `/api/health`
+- **Method:** `GET`
+- **Headers:** None required
+
+#### Response
+**Status Code:** `200 OK`
+
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "service": "user-service",
+  "version": "1.0.0"
+}
+```
+
+**Error Response (Service Down)**
+**Status Code:** `503 Service Unavailable`
+
+---
+
+## User Info Endpoints
 
 **Base URL:** `/api/user-info`
 
@@ -9,7 +146,6 @@ This API provides endpoints for managing user information records. All creation 
 
 ---
 
-## Endpoints
 
 ### 1. Create User Info
 Creates a new user information record with all fields.
