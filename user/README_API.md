@@ -8,6 +8,133 @@
 
 ---
 
+## Health Check Endpoints
+
+### Health - Simple Ping
+
+Simple health check for AWS API Gateway and load balancers.
+
+- **URL**: `/api/health/ping`
+- **Method**: `GET`
+
+**Success Response**:
+- **Code**: `200 OK`
+- **Content**:
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "service": "user-service",
+  "version": "1.0.0"
+}
+```
+
+**Error Response**:
+- **Code**: `503 SERVICE UNAVAILABLE`
+
+---
+
+### Health - Detailed Status
+
+Comprehensive health check with component details including database status.
+
+- **URL**: `/api/health/detailed`
+- **Method**: `GET`
+
+**Success Response**:
+- **Code**: `200 OK`
+- **Content**:
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "service": "user-service",
+  "version": "1.0.0",
+  "components": {
+    "db": {
+      "status": "UP",
+      "database": "PostgreSQL",
+      "validationQuery": "isValid()"
+    }
+  }
+}
+```
+
+**Error Response**:
+- **Code**: `503 SERVICE UNAVAILABLE`
+
+---
+
+### Health - Liveness Probe
+
+Kubernetes/ECS liveness probe. Indicates if the service should be restarted.
+
+- **URL**: `/api/health/live`
+- **Method**: `GET`
+
+**Success Response**:
+- **Code**: `200 OK`
+- **Content**:
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "probe": "liveness"
+}
+```
+
+**Error Response**:
+- **Code**: `503 SERVICE UNAVAILABLE`
+
+---
+
+### Health - Readiness Probe
+
+Kubernetes/ECS readiness probe. Indicates if the service is ready to accept traffic.
+
+- **URL**: `/api/health/ready`
+- **Method**: `GET`
+
+**Success Response**:
+- **Code**: `200 OK`
+- **Content**:
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "probe": "readiness"
+}
+```
+
+**Error Response**:
+- **Code**: `503 SERVICE UNAVAILABLE`
+
+---
+
+### Health - Combined Status
+
+Combined health status for AWS API Gateway and monitoring services.
+
+- **URL**: `/api/health`
+- **Method**: `GET`
+
+**Success Response**:
+- **Code**: `200 OK`
+- **Content**:
+```json
+{
+  "status": "UP",
+  "timestamp": "2025-11-28T10:30:00.123456",
+  "service": "user-service",
+  "version": "1.0.0"
+}
+```
+
+**Error Response**:
+- **Code**: `503 SERVICE UNAVAILABLE`
+
+---
+
 ## API Endpoints
 
 ### 1. Create User Info
