@@ -506,10 +506,30 @@ curl -X DELETE "http://localhost:8080/api/user-info/123e4567-e89b-12d3-a456-4266
 ## Swagger/OpenAPI Documentation
 
 For interactive API documentation, visit:
-- Swagger UI: `http://localhost:8080/swagger-ui.html`
-- OpenAPI JSON: `http://localhost:8080/api-docs`
+- Swagger UI: `http://localhost:8081/swagger-ui.html`
+- OpenAPI JSON: `http://localhost:8081/api-docs`
 
 ---
 
-*Last Updated: October 26, 2025*
+## API Endpoint Summary
+
+| Method | URL | Authentication | Description |
+|--------|-----|-----------------|-------------|
+| GET | `/api/health/ping` | None | Simple health check |
+| GET | `/api/health/detailed` | None | Detailed health check |
+| GET | `/api/health/live` | None | Liveness probe (Kubernetes/ECS) |
+| GET | `/api/health/ready` | None | Readiness probe (Kubernetes/ECS) |
+| GET | `/api/health` | None | Combined health status |
+| POST | `/api/user-info` | X-User-Id | Create user info |
+| POST | `/api/user-info/empty` | X-User-Id | Create empty user info |
+| GET | `/api/user-info/{id}` | None | Get user info by ID |
+| GET | `/api/user-info/by-user-id` | X-User-Id | Get user info by User ID |
+| PUT | `/api/user-info/{id}` | None | Update user info (full) |
+| PATCH | `/api/user-info` | X-User-Id | Patch user info by User ID |
+| PATCH | `/api/user-info/{id}` | None | Patch user info by ID |
+| DELETE | `/api/user-info/{id}` | None | Delete user info |
+
+---
+
+*Last Updated: November 30, 2025*
 

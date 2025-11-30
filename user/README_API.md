@@ -623,6 +623,26 @@ const getUserInfo = async (userId) => {
 
 ---
 
+## API Endpoint Summary
+
+| Method | URL | Authentication | Description |
+|--------|-----|-----------------|-------------|
+| GET | `/api/health/ping` | None | Simple health check |
+| GET | `/api/health/detailed` | None | Detailed health check |
+| GET | `/api/health/live` | None | Liveness probe (Kubernetes/ECS) |
+| GET | `/api/health/ready` | None | Readiness probe (Kubernetes/ECS) |
+| GET | `/api/health` | None | Combined health status |
+| POST | `/api/user-info` | X-User-Id | Create user info |
+| POST | `/api/user-info/empty` | X-User-Id | Create empty user info |
+| GET | `/api/user-info/{id}` | None | Get user info by ID |
+| GET | `/api/user-info/by-user-id` | X-User-Id | Get user info by User ID |
+| PUT | `/api/user-info/{id}` | None | Update user info (full) |
+| PATCH | `/api/user-info` | X-User-Id | Patch user info by User ID |
+| PATCH | `/api/user-info/{id}` | None | Patch user info by ID |
+| DELETE | `/api/user-info/{id}` | None | Delete user info |
+
+---
+
 ## Swagger UI
 
 Interactive API documentation is available at:
@@ -638,6 +658,7 @@ http://localhost:8081/swagger-ui/index.html
 - **Database**: Uses JPA/Hibernate for data persistence
 - **Framework**: Spring Boot
 - **API Version**: 1.0
+- **Last Updated**: November 30, 2025
 
 For questions or issues, please contact the backend team.
 
