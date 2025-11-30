@@ -103,6 +103,23 @@ public class UserInfoController {
         return ResponseEntity.ok(updated);
     }
 
+    @PatchMapping
+    @Operation(summary = "Patch user info by User ID", description = "Partially updates fields of user information using User ID from AWS API Gateway header")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User info patched successfully",
+                    content = @Content(schema = @Schema(implementation = UserInfoDTO.class))),
+            @ApiResponse(responseCode = "404", description = "User info not found"),
+            @ApiResponse(responseCode = "400", description = "Invalid input"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<UserInfoDTO> patchUserInfoByUserId(
+            @Parameter(description = "User ID from AWS API Gateway", required = true)
+            @RequestHeader("X-User-Id") String userId,
+            @RequestBody UserInfoCreation userInfoCreation) {
+        UserInfoDTO patched = userInfoService.patchUserInfoByUserId(UUID.fromString(userId), userInfoCreation);
+        return ResponseEntity.ok(patched);
+    }
+
     @PatchMapping("/{id}")
     @Operation(summary = "Patch user info", description = "Partially updates fields of an existing user information record")
     @ApiResponses(value = {
