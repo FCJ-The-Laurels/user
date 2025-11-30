@@ -12,5 +12,6 @@ public interface UserInfoService {
     UserInfoDTO getUserInfoByUserId(UUID userId);
     UserInfoDTO updateUserInfo(UUID id, UserInfoCreation userInfoCreation);
     UserInfoDTO patchUserInfo(UUID id, UserInfoCreation userInfoCreation);
+    UserInfoDTO patchUserInfoByUserId(UUID userId, UserInfoCreation userInfoCreation);
     void deleteUserInfo(UUID id);
 }

@@ -90,6 +90,28 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
+    public UserInfoDTO patchUserInfoByUserId(UUID userId, UserInfoCreation userInfoCreation) {
+        UserInfo userInfo = userInfoRepository.findByUserId(userId)
+                .orElseThrow(() -> new UserInfoNotFoundException("UserInfo not found with userId: " + userId));
+
+        if (userInfoCreation.getFullName() != null) {
+            userInfo.setFullName(userInfoCreation.getFullName());
+        }
+        if (userInfoCreation.getAvatarUrl() != null) {
+            userInfo.setAvatarUrl(userInfoCreation.getAvatarUrl());
+        }
+        if (userInfoCreation.getPhoneNumber() != null) {
+            userInfo.setPhoneNumber(userInfoCreation.getPhoneNumber());
+        }
+        if (userInfoCreation.getAddress() != null) {
+            userInfo.setAddress(userInfoCreation.getAddress());
+        }
+
+        UserInfo patchedUserInfo = userInfoRepository.save(userInfo);
+        return convertToDTO(patchedUserInfo);
+    }
+
+    @Override
     public void deleteUserInfo(UUID id) {
         if (!userInfoRepository.existsById(id)) {
             throw new UserInfoNotFoundException("UserInfo not found with id: " + id);
