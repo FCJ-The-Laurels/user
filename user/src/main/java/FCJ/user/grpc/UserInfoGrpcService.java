@@ -239,7 +239,6 @@ public class UserInfoGrpcService extends UserInfoServiceGrpc.UserInfoServiceImpl
             UserInfoDTO result = userInfoService.getUserInfoById(id);
             
             BlogUserInfoResponse response = BlogUserInfoResponse.newBuilder()
-                    .setId(result.getId().toString())
                     .setName(result.getFullName() != null ? result.getFullName() : "")
                     .setAvatar(result.getAvatarUrl() != null ? result.getAvatarUrl() : "")
                     .build();
