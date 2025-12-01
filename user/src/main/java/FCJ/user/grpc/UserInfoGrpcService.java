@@ -84,14 +84,14 @@ public class UserInfoGrpcService extends UserInfoServiceGrpc.UserInfoServiceImpl
     @Override
     public void getUserInfoById(GetUserInfoByIdRequest request, StreamObserver<UserInfoResponse> responseObserver) {
         try {
-            logger.info("gRPC: getUserInfoById called with id={}", request.getId());
+            logger.info("gRPC: getUserInfoById called with userId={}", request.getId());
 
-            UUID id = UUID.fromString(request.getId());
-            UserInfoDTO result = userInfoService.getUserInfoById(id);
-            
+            UUID userId = UUID.fromString(request.getId());
+            UserInfoDTO result = userInfoService.getUserInfoByUserId(userId);
+
             UserInfoResponse response = convertToGrpcResponse(result);
             
-            logger.info("gRPC: getUserInfoById completed successfully for id={}", id);
+            logger.info("gRPC: getUserInfoById completed successfully for userId={}", userId);
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (UserInfoNotFoundException e) {
@@ -102,7 +102,7 @@ public class UserInfoGrpcService extends UserInfoServiceGrpc.UserInfoServiceImpl
         } catch (IllegalArgumentException e) {
             logger.error("gRPC: getUserInfoById - Invalid argument error: {}", e.getMessage(), e);
             responseObserver.onError(Status.INVALID_ARGUMENT
-                    .withDescription("Invalid ID format: " + e.getMessage())
+                    .withDescription("Invalid user ID format: " + e.getMessage())
                     .asRuntimeException());
         } catch (Exception e) {
             logger.error("gRPC: getUserInfoById - Internal error: {}", e.getMessage(), e);
@@ -233,17 +233,17 @@ public class UserInfoGrpcService extends UserInfoServiceGrpc.UserInfoServiceImpl
     @Override
     public void blogUserInfo(BlogUserInfoRequest request, StreamObserver<BlogUserInfoResponse> responseObserver) {
         try {
-            logger.info("gRPC: blogUserInfo called with id={}", request.getId());
+            logger.info("gRPC: blogUserInfo called with userId={}", request.getId());
 
-            UUID id = UUID.fromString(request.getId());
-            UserInfoDTO result = userInfoService.getUserInfoById(id);
-            
+            UUID userId = UUID.fromString(request.getId());
+            UserInfoDTO result = userInfoService.getUserInfoByUserId(userId);
+
             BlogUserInfoResponse response = BlogUserInfoResponse.newBuilder()
                     .setName(result.getFullName() != null ? result.getFullName() : "")
                     .setAvatar(result.getAvatarUrl() != null ? result.getAvatarUrl() : "")
                     .build();
             
-            logger.info("gRPC: blogUserInfo completed successfully for id={}", id);
+            logger.info("gRPC: blogUserInfo completed successfully for userId={}", userId);
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (UserInfoNotFoundException e) {
@@ -254,7 +254,7 @@ public class UserInfoGrpcService extends UserInfoServiceGrpc.UserInfoServiceImpl
         } catch (IllegalArgumentException e) {
             logger.error("gRPC: blogUserInfo - Invalid argument error: {}", e.getMessage(), e);
             responseObserver.onError(Status.INVALID_ARGUMENT
-                    .withDescription("Invalid ID format: " + e.getMessage())
+                    .withDescription("Invalid user ID format: " + e.getMessage())
                     .asRuntimeException());
         } catch (Exception e) {
             logger.error("gRPC: blogUserInfo - Internal error: {}", e.getMessage(), e);
