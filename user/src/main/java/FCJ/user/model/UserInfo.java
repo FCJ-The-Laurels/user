@@ -25,5 +25,7 @@ public class UserInfo {
     private String address;
     @Builder.Default
     private String membership = "BASIC";
+    @Column(unique = true, name="momoTransId")
+    private String momoTransId;
     //we will have BASIC, VIP, PREMIUM
 }
