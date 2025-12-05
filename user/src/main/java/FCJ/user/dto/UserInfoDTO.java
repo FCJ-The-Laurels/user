@@ -27,4 +27,7 @@ public class UserInfoDTO {
 
     @Schema(description = "User address", example = "123 Main St, City, Country")
     private String address;
+
+    @Schema(description = "Membership status", example = "false")
+    private String membership;
 }

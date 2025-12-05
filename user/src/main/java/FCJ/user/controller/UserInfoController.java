@@ -1,5 +1,8 @@
 package FCJ.user.controller;
 
+import FCJ.user.dto.CurrentMembershipResponse;
+import FCJ.user.dto.MembershipUpdateRequest;
+import FCJ.user.dto.TransactionCheckResponse;
 import FCJ.user.dto.UserInfoCreation;
 import FCJ.user.dto.UserInfoDTO;
 import FCJ.user.service.UserInfoService;
@@ -85,8 +88,6 @@ public class UserInfoController {
         UserInfoDTO userInfo = userInfoService.getUserInfoByUserId(UUID.fromString(userId));
         return ResponseEntity.ok(userInfo);
     }
-
-    @PutMapping("/{id}")
     @Operation(summary = "Update user info", description = "Updates all fields of an existing user information record")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User info updated successfully",
@@ -149,5 +150,36 @@ public class UserInfoController {
             @PathVariable UUID id) {
         userInfoService.deleteUserInfo(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/membership")
+    @Operation(summary = "Update user membership", description = "Updates the membership level for a user. Includes MoMo transaction ID for idempotency checking.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Membership updated successfully",
+                    content = @Content(schema = @Schema(implementation = UserInfoDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input or transaction already processed"),
+            @ApiResponse(responseCode = "404", description = "User info not found"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<UserInfoDTO> updateMembership(
+            @Parameter(description = "User ID from AWS API Gateway", required = true)
+            @RequestHeader("X-User-Id") String userId,
+            @RequestBody MembershipUpdateRequest request) {
+        UserInfoDTO updated = userInfoService.updateMembership(UUID.fromString(userId), request);
+        return ResponseEntity.ok(updated);
+    }
+
+    @GetMapping("/check-transaction/{momoTransId}")
+    @Operation(summary = "Check transaction status for idempotency", description = "Checks if a MoMo transaction has already been processed. Used for idempotency verification.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Transaction check completed",
+                    content = @Content(schema = @Schema(implementation = TransactionCheckResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    public ResponseEntity<TransactionCheckResponse> checkTransaction(
+            @Parameter(description = "MoMo transaction ID to check", required = true)
+            @PathVariable String momoTransId) {
+        TransactionCheckResponse response = userInfoService.checkTransaction(momoTransId);
+        return ResponseEntity.ok(response);
     }
 }

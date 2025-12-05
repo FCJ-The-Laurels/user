@@ -1,5 +1,8 @@
 package FCJ.user.service;
 
+import FCJ.user.dto.CurrentMembershipResponse;
+import FCJ.user.dto.MembershipUpdateRequest;
+import FCJ.user.dto.TransactionCheckResponse;
 import FCJ.user.dto.UserInfoCreation;
 import FCJ.user.dto.UserInfoDTO;
 import FCJ.user.exception.UserInfoNotFoundException;
@@ -119,6 +122,61 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfoRepository.deleteById(id);
     }
 
+    @Override
+    public UserInfoDTO updateMembership(UUID userId, MembershipUpdateRequest request) {
+        // Check if transaction has already been processed (idempotency)
+        if (request.getMomoTransId() != null && !request.getMomoTransId().isEmpty()) {
+            userInfoRepository.findByMomoTransId(request.getMomoTransId())
+                    .ifPresent(existing -> {
+                        throw new RuntimeException("Transaction already processed with ID: " + request.getMomoTransId());
+                    });
+        }
+
+        UserInfo userInfo = userInfoRepository.findByUserId(userId)
+                .orElseThrow(() -> new UserInfoNotFoundException("UserInfo not found with userId: " + userId));
+
+        userInfo.setMembership(request.getMembership());
+        userInfo.setMomoTransId(request.getMomoTransId());
+
+        UserInfo updatedUserInfo = userInfoRepository.save(userInfo);
+        return convertToDTO(updatedUserInfo);
+    }
+
+    @Override
+    public TransactionCheckResponse checkTransaction(String momoTransId) {
+        TransactionCheckResponse response = new TransactionCheckResponse();
+        response.setMomoTransId(momoTransId);
+
+        userInfoRepository.findByMomoTransId(momoTransId)
+                .ifPresentOrElse(
+                        userInfo -> {
+                            response.setProcessed(true);
+                            response.setMembership(userInfo.getMembership());
+                            response.setMessage("Transaction already processed");
+                        },
+                        () -> {
+                            response.setProcessed(false);
+                            response.setMessage("Transaction not found or pending");
+                        }
+                );
+
+        return response;
+    }
+
+    @Override
+    public CurrentMembershipResponse getCurrentMembership(UUID userId) {
+        UserInfo userInfo = userInfoRepository.findByUserId(userId)
+                .orElseThrow(() -> new UserInfoNotFoundException("UserInfo not found with userId: " + userId));
+
+        CurrentMembershipResponse response = new CurrentMembershipResponse();
+        response.setMembership(userInfo.getMembership());
+        response.setFullName(userInfo.getFullName());
+        response.setPhoneNumber(userInfo.getPhoneNumber());
+        response.setAddress(userInfo.getAddress());
+
+        return response;
+    }
+
     private UserInfoDTO convertToDTO(UserInfo userInfo) {
         UserInfoDTO dto = new UserInfoDTO();
         dto.setId(userInfo.getId());
@@ -127,6 +185,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         dto.setAvatarUrl(userInfo.getAvatarUrl());
         dto.setPhoneNumber(userInfo.getPhoneNumber());
         dto.setAddress(userInfo.getAddress());
+        dto.setMembership(userInfo.getMembership());
         return dto;
     }
 }
