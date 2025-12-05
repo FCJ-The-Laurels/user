@@ -127,6 +127,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         dto.setAvatarUrl(userInfo.getAvatarUrl());
         dto.setPhoneNumber(userInfo.getPhoneNumber());
         dto.setAddress(userInfo.getAddress());
+        dto.setMembership(userInfo.getMembership());
         return dto;
     }
 }

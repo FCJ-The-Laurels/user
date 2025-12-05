@@ -1,14 +1,12 @@
 package FCJ.user.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 
+@Builder
 @Setter
 @Getter
 @NoArgsConstructor
@@ -25,4 +23,7 @@ public class UserInfo {
     private String avatarUrl;
     private String phoneNumber;
     private String address;
+    @Builder.Default
+    private String membership = "BASIC";
+    //we will have BASIC, VIP, PREMIUM
 }
