@@ -1,8 +1,5 @@
 package FCJ.user.service;
 
-import FCJ.user.dto.CurrentMembershipResponse;
-import FCJ.user.dto.MembershipUpdateRequest;
-import FCJ.user.dto.TransactionCheckResponse;
 import FCJ.user.dto.UserInfoCreation;
 import FCJ.user.dto.UserInfoDTO;
 import FCJ.user.exception.UserInfoNotFoundException;
@@ -27,6 +24,34 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setAvatarUrl(userInfoCreation.getAvatarUrl());
         userInfo.setPhoneNumber(userInfoCreation.getPhoneNumber());
         userInfo.setAddress(userInfoCreation.getAddress());
+        // Set subscription fields
+        if (userInfoCreation.getSubscriptionTier() != null) {
+            userInfo.setSubscriptionTier(userInfoCreation.getSubscriptionTier());
+        }
+        if (userInfoCreation.getSubscriptionStatus() != null) {
+            userInfo.setSubscriptionStatus(userInfoCreation.getSubscriptionStatus());
+        }
+        if (userInfoCreation.getSubscriptionExpiresAt() != null) {
+            userInfo.setSubscriptionExpiresAt(userInfoCreation.getSubscriptionExpiresAt());
+        }
+        if (userInfoCreation.getPaymentMethod() != null) {
+            userInfo.setPaymentMethod(userInfoCreation.getPaymentMethod());
+        }
+        if (userInfoCreation.getLastPaymentId() != null) {
+            userInfo.setLastPaymentId(userInfoCreation.getLastPaymentId());
+        }
+        if (userInfoCreation.getLastPaymentDate() != null) {
+            userInfo.setLastPaymentDate(userInfoCreation.getLastPaymentDate());
+        }
+        if (userInfoCreation.getLastPaymentAmount() != null) {
+            userInfo.setLastPaymentAmount(userInfoCreation.getLastPaymentAmount());
+        }
+        if (userInfoCreation.getNextBillingDate() != null) {
+            userInfo.setNextBillingDate(userInfoCreation.getNextBillingDate());
+        }
+        if (userInfoCreation.getAutoRenewal() != null) {
+            userInfo.setAutoRenewal(userInfoCreation.getAutoRenewal());
+        }
 
         UserInfo savedUserInfo = userInfoRepository.save(userInfo);
         return convertToDTO(savedUserInfo);
@@ -65,6 +90,34 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setAvatarUrl(userInfoCreation.getAvatarUrl());
         userInfo.setPhoneNumber(userInfoCreation.getPhoneNumber());
         userInfo.setAddress(userInfoCreation.getAddress());
+        // Update subscription fields
+        if (userInfoCreation.getSubscriptionTier() != null) {
+            userInfo.setSubscriptionTier(userInfoCreation.getSubscriptionTier());
+        }
+        if (userInfoCreation.getSubscriptionStatus() != null) {
+            userInfo.setSubscriptionStatus(userInfoCreation.getSubscriptionStatus());
+        }
+        if (userInfoCreation.getSubscriptionExpiresAt() != null) {
+            userInfo.setSubscriptionExpiresAt(userInfoCreation.getSubscriptionExpiresAt());
+        }
+        if (userInfoCreation.getPaymentMethod() != null) {
+            userInfo.setPaymentMethod(userInfoCreation.getPaymentMethod());
+        }
+        if (userInfoCreation.getLastPaymentId() != null) {
+            userInfo.setLastPaymentId(userInfoCreation.getLastPaymentId());
+        }
+        if (userInfoCreation.getLastPaymentDate() != null) {
+            userInfo.setLastPaymentDate(userInfoCreation.getLastPaymentDate());
+        }
+        if (userInfoCreation.getLastPaymentAmount() != null) {
+            userInfo.setLastPaymentAmount(userInfoCreation.getLastPaymentAmount());
+        }
+        if (userInfoCreation.getNextBillingDate() != null) {
+            userInfo.setNextBillingDate(userInfoCreation.getNextBillingDate());
+        }
+        if (userInfoCreation.getAutoRenewal() != null) {
+            userInfo.setAutoRenewal(userInfoCreation.getAutoRenewal());
+        }
 
         UserInfo updatedUserInfo = userInfoRepository.save(userInfo);
         return convertToDTO(updatedUserInfo);
@@ -86,6 +139,34 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         if (userInfoCreation.getAddress() != null) {
             userInfo.setAddress(userInfoCreation.getAddress());
+        }
+        // Patch subscription fields
+        if (userInfoCreation.getSubscriptionTier() != null) {
+            userInfo.setSubscriptionTier(userInfoCreation.getSubscriptionTier());
+        }
+        if (userInfoCreation.getSubscriptionStatus() != null) {
+            userInfo.setSubscriptionStatus(userInfoCreation.getSubscriptionStatus());
+        }
+        if (userInfoCreation.getSubscriptionExpiresAt() != null) {
+            userInfo.setSubscriptionExpiresAt(userInfoCreation.getSubscriptionExpiresAt());
+        }
+        if (userInfoCreation.getPaymentMethod() != null) {
+            userInfo.setPaymentMethod(userInfoCreation.getPaymentMethod());
+        }
+        if (userInfoCreation.getLastPaymentId() != null) {
+            userInfo.setLastPaymentId(userInfoCreation.getLastPaymentId());
+        }
+        if (userInfoCreation.getLastPaymentDate() != null) {
+            userInfo.setLastPaymentDate(userInfoCreation.getLastPaymentDate());
+        }
+        if (userInfoCreation.getLastPaymentAmount() != null) {
+            userInfo.setLastPaymentAmount(userInfoCreation.getLastPaymentAmount());
+        }
+        if (userInfoCreation.getNextBillingDate() != null) {
+            userInfo.setNextBillingDate(userInfoCreation.getNextBillingDate());
+        }
+        if (userInfoCreation.getAutoRenewal() != null) {
+            userInfo.setAutoRenewal(userInfoCreation.getAutoRenewal());
         }
 
         UserInfo patchedUserInfo = userInfoRepository.save(userInfo);
@@ -109,6 +190,34 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (userInfoCreation.getAddress() != null) {
             userInfo.setAddress(userInfoCreation.getAddress());
         }
+        // Patch subscription fields
+        if (userInfoCreation.getSubscriptionTier() != null) {
+            userInfo.setSubscriptionTier(userInfoCreation.getSubscriptionTier());
+        }
+        if (userInfoCreation.getSubscriptionStatus() != null) {
+            userInfo.setSubscriptionStatus(userInfoCreation.getSubscriptionStatus());
+        }
+        if (userInfoCreation.getSubscriptionExpiresAt() != null) {
+            userInfo.setSubscriptionExpiresAt(userInfoCreation.getSubscriptionExpiresAt());
+        }
+        if (userInfoCreation.getPaymentMethod() != null) {
+            userInfo.setPaymentMethod(userInfoCreation.getPaymentMethod());
+        }
+        if (userInfoCreation.getLastPaymentId() != null) {
+            userInfo.setLastPaymentId(userInfoCreation.getLastPaymentId());
+        }
+        if (userInfoCreation.getLastPaymentDate() != null) {
+            userInfo.setLastPaymentDate(userInfoCreation.getLastPaymentDate());
+        }
+        if (userInfoCreation.getLastPaymentAmount() != null) {
+            userInfo.setLastPaymentAmount(userInfoCreation.getLastPaymentAmount());
+        }
+        if (userInfoCreation.getNextBillingDate() != null) {
+            userInfo.setNextBillingDate(userInfoCreation.getNextBillingDate());
+        }
+        if (userInfoCreation.getAutoRenewal() != null) {
+            userInfo.setAutoRenewal(userInfoCreation.getAutoRenewal());
+        }
 
         UserInfo patchedUserInfo = userInfoRepository.save(userInfo);
         return convertToDTO(patchedUserInfo);
@@ -122,61 +231,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfoRepository.deleteById(id);
     }
 
-    @Override
-    public UserInfoDTO updateMembership(UUID userId, MembershipUpdateRequest request) {
-        // Check if transaction has already been processed (idempotency)
-        if (request.getMomoTransId() != null && !request.getMomoTransId().isEmpty()) {
-            userInfoRepository.findByMomoTransId(request.getMomoTransId())
-                    .ifPresent(existing -> {
-                        throw new RuntimeException("Transaction already processed with ID: " + request.getMomoTransId());
-                    });
-        }
-
-        UserInfo userInfo = userInfoRepository.findByUserId(userId)
-                .orElseThrow(() -> new UserInfoNotFoundException("UserInfo not found with userId: " + userId));
-
-        userInfo.setMembership(request.getMembership());
-        userInfo.setMomoTransId(request.getMomoTransId());
-
-        UserInfo updatedUserInfo = userInfoRepository.save(userInfo);
-        return convertToDTO(updatedUserInfo);
-    }
-
-    @Override
-    public TransactionCheckResponse checkTransaction(String momoTransId) {
-        TransactionCheckResponse response = new TransactionCheckResponse();
-        response.setMomoTransId(momoTransId);
-
-        userInfoRepository.findByMomoTransId(momoTransId)
-                .ifPresentOrElse(
-                        userInfo -> {
-                            response.setProcessed(true);
-                            response.setMembership(userInfo.getMembership());
-                            response.setMessage("Transaction already processed");
-                        },
-                        () -> {
-                            response.setProcessed(false);
-                            response.setMessage("Transaction not found or pending");
-                        }
-                );
-
-        return response;
-    }
-
-    @Override
-    public CurrentMembershipResponse getCurrentMembership(UUID userId) {
-        UserInfo userInfo = userInfoRepository.findByUserId(userId)
-                .orElseThrow(() -> new UserInfoNotFoundException("UserInfo not found with userId: " + userId));
-
-        CurrentMembershipResponse response = new CurrentMembershipResponse();
-        response.setMembership(userInfo.getMembership());
-        response.setFullName(userInfo.getFullName());
-        response.setPhoneNumber(userInfo.getPhoneNumber());
-        response.setAddress(userInfo.getAddress());
-
-        return response;
-    }
-
     private UserInfoDTO convertToDTO(UserInfo userInfo) {
         UserInfoDTO dto = new UserInfoDTO();
         dto.setId(userInfo.getId());
@@ -185,7 +239,16 @@ public class UserInfoServiceImpl implements UserInfoService {
         dto.setAvatarUrl(userInfo.getAvatarUrl());
         dto.setPhoneNumber(userInfo.getPhoneNumber());
         dto.setAddress(userInfo.getAddress());
-        dto.setMembership(userInfo.getMembership());
+        // Map subscription fields
+        dto.setSubscriptionTier(userInfo.getSubscriptionTier());
+        dto.setSubscriptionStatus(userInfo.getSubscriptionStatus());
+        dto.setSubscriptionExpiresAt(userInfo.getSubscriptionExpiresAt());
+        dto.setPaymentMethod(userInfo.getPaymentMethod());
+        dto.setLastPaymentId(userInfo.getLastPaymentId());
+        dto.setLastPaymentDate(userInfo.getLastPaymentDate());
+        dto.setLastPaymentAmount(userInfo.getLastPaymentAmount());
+        dto.setNextBillingDate(userInfo.getNextBillingDate());
+        dto.setAutoRenewal(userInfo.getAutoRenewal());
         return dto;
     }
 }

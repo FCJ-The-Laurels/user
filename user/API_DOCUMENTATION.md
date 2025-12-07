@@ -162,7 +162,16 @@ Creates a new user information record with all fields.
   "fullName": "John Doe",
   "avatarUrl": "https://example.com/avatar.jpg",
   "phoneNumber": "+1234567890",
-  "address": "123 Main St, City, Country"
+  "address": "123 Main St, City, Country",
+  "subscriptionTier": "BASIC",
+  "subscriptionStatus": "ACTIVE",
+  "subscriptionExpiresAt": "2025-12-31T23:59:59Z",
+  "paymentMethod": "MOMO",
+  "lastPaymentId": "PAY-2025-001",
+  "lastPaymentDate": "2025-11-30T10:30:00Z",
+  "lastPaymentAmount": 50000.0,
+  "nextBillingDate": "2025-12-30T23:59:59Z",
+  "autoRenewal": true
 }
 ```
 
@@ -173,6 +182,15 @@ Creates a new user information record with all fields.
 | avatarUrl | String | No | URL to user's avatar image | "https://example.com/avatar.jpg" |
 | phoneNumber | String | No | User's phone number | "+1234567890" |
 | address | String | No | User's physical address | "123 Main St, City, Country" |
+| subscriptionTier | String | No | Subscription tier (BASIC, PREMIUM, VIP) | "BASIC" |
+| subscriptionStatus | String | No | Subscription status (ACTIVE, GRACE, EXPIRED, CANCELLED) | "ACTIVE" |
+| subscriptionExpiresAt | Timestamp | No | Subscription expiration date | "2025-12-31T23:59:59Z" |
+| paymentMethod | String | No | Payment method (MOMO, CREDIT_CARD, BANK_TRANSFER) | "MOMO" |
+| lastPaymentId | String | No | Last payment transaction ID | "PAY-2025-001" |
+| lastPaymentDate | Timestamp | No | Last payment date | "2025-11-30T10:30:00Z" |
+| lastPaymentAmount | Double | No | Last payment amount | 50000.0 |
+| nextBillingDate | Timestamp | No | Next billing date | "2025-12-30T23:59:59Z" |
+| autoRenewal | Boolean | No | Auto-renewal enabled | true |
 
 #### Response
 **Status Code:** `201 Created`
@@ -185,7 +203,15 @@ Creates a new user information record with all fields.
   "avatarUrl": "https://example.com/avatar.jpg",
   "phoneNumber": "+1234567890",
   "address": "123 Main St, City, Country",
-  "membership": "false"
+  "subscriptionTier": "BASIC",
+  "subscriptionStatus": "ACTIVE",
+  "subscriptionExpiresAt": "2025-12-31T23:59:59Z",
+  "paymentMethod": "MOMO",
+  "lastPaymentId": "PAY-2025-001",
+  "lastPaymentDate": "2025-11-30T10:30:00Z",
+  "lastPaymentAmount": 50000.0,
+  "nextBillingDate": "2025-12-30T23:59:59Z",
+  "autoRenewal": true
 }
 ```
 
@@ -219,7 +245,15 @@ None required
   "avatarUrl": null,
   "phoneNumber": null,
   "address": null,
-  "membership": null
+  "subscriptionTier": null,
+  "subscriptionStatus": null,
+  "subscriptionExpiresAt": null,
+  "paymentMethod": null,
+  "lastPaymentId": null,
+  "lastPaymentDate": null,
+  "lastPaymentAmount": null,
+  "nextBillingDate": null,
+  "autoRenewal": false
 }
 ```
 
@@ -250,7 +284,15 @@ Retrieves user information by its unique identifier.
   "avatarUrl": "https://example.com/avatar.jpg",
   "phoneNumber": "+1234567890",
   "address": "123 Main St, City, Country",
-  "membership": "false"
+  "subscriptionTier": "BASIC",
+  "subscriptionStatus": "ACTIVE",
+  "subscriptionExpiresAt": "2025-12-31T23:59:59Z",
+  "paymentMethod": "MOMO",
+  "lastPaymentId": "PAY-2025-001",
+  "lastPaymentDate": "2025-11-30T10:30:00Z",
+  "lastPaymentAmount": 50000.0,
+  "nextBillingDate": "2025-12-30T23:59:59Z",
+  "autoRenewal": true
 }
 ```
 
@@ -281,7 +323,15 @@ Retrieves user information using the User ID from AWS API Gateway header. This i
   "avatarUrl": "https://example.com/avatar.jpg",
   "phoneNumber": "+1234567890",
   "address": "123 Main St, City, Country",
-  "membership": "false"
+  "subscriptionTier": "BASIC",
+  "subscriptionStatus": "ACTIVE",
+  "subscriptionExpiresAt": "2025-12-31T23:59:59Z",
+  "paymentMethod": "MOMO",
+  "lastPaymentId": "PAY-2025-001",
+  "lastPaymentDate": "2025-11-30T10:30:00Z",
+  "lastPaymentAmount": 50000.0,
+  "nextBillingDate": "2025-12-30T23:59:59Z",
+  "autoRenewal": true
 }
 ```
 
@@ -309,7 +359,16 @@ Updates all fields of an existing user information record. This is a full update
   "fullName": "Jane Doe",
   "avatarUrl": "https://example.com/new-avatar.jpg",
   "phoneNumber": "+9876543210",
-  "address": "456 Oak Ave, New City, Country"
+  "address": "456 Oak Ave, New City, Country",
+  "subscriptionTier": "PREMIUM",
+  "subscriptionStatus": "ACTIVE",
+  "subscriptionExpiresAt": "2025-12-31T23:59:59Z",
+  "paymentMethod": "CREDIT_CARD",
+  "lastPaymentId": "PAY-2025-002",
+  "lastPaymentDate": "2025-11-30T10:30:00Z",
+  "lastPaymentAmount": 100000.0,
+  "nextBillingDate": "2025-12-30T23:59:59Z",
+  "autoRenewal": true
 }
 ```
 
@@ -320,6 +379,15 @@ Updates all fields of an existing user information record. This is a full update
 | avatarUrl | String | No | URL to user's avatar image | "https://example.com/new-avatar.jpg" |
 | phoneNumber | String | No | User's phone number | "+9876543210" |
 | address | String | No | User's physical address | "456 Oak Ave, New City, Country" |
+| subscriptionTier | String | No | Subscription tier (BASIC, PREMIUM, VIP) | "PREMIUM" |
+| subscriptionStatus | String | No | Subscription status (ACTIVE, GRACE, EXPIRED, CANCELLED) | "ACTIVE" |
+| subscriptionExpiresAt | Timestamp | No | Subscription expiration date | "2025-12-31T23:59:59Z" |
+| paymentMethod | String | No | Payment method (MOMO, CREDIT_CARD, BANK_TRANSFER) | "CREDIT_CARD" |
+| lastPaymentId | String | No | Last payment transaction ID | "PAY-2025-002" |
+| lastPaymentDate | Timestamp | No | Last payment date | "2025-11-30T10:30:00Z" |
+| lastPaymentAmount | Double | No | Last payment amount | 100000.0 |
+| nextBillingDate | Timestamp | No | Next billing date | "2025-12-30T23:59:59Z" |
+| autoRenewal | Boolean | No | Auto-renewal enabled | true |
 
 #### Response
 **Status Code:** `200 OK`
@@ -332,7 +400,15 @@ Updates all fields of an existing user information record. This is a full update
   "avatarUrl": "https://example.com/new-avatar.jpg",
   "phoneNumber": "+9876543210",
   "address": "456 Oak Ave, New City, Country",
-  "membership": "false"
+  "subscriptionTier": "PREMIUM",
+  "subscriptionStatus": "ACTIVE",
+  "subscriptionExpiresAt": "2025-12-31T23:59:59Z",
+  "paymentMethod": "CREDIT_CARD",
+  "lastPaymentId": "PAY-2025-002",
+  "lastPaymentDate": "2025-11-30T10:30:00Z",
+  "lastPaymentAmount": 100000.0,
+  "nextBillingDate": "2025-12-30T23:59:59Z",
+  "autoRenewal": true
 }
 ```
 
@@ -370,6 +446,15 @@ All fields are optional. Only include fields you want to update.
 | avatarUrl | String | No | URL to user's avatar image | "https://example.com/new-avatar.jpg" |
 | phoneNumber | String | No | User's phone number | "+1111111111" |
 | address | String | No | User's physical address | "456 Oak Ave, New City, Country" |
+| subscriptionTier | String | No | Subscription tier (BASIC, PREMIUM, VIP) | "PREMIUM" |
+| subscriptionStatus | String | No | Subscription status (ACTIVE, GRACE, EXPIRED, CANCELLED) | "ACTIVE" |
+| subscriptionExpiresAt | Timestamp | No | Subscription expiration date | "2025-12-31T23:59:59Z" |
+| paymentMethod | String | No | Payment method (MOMO, CREDIT_CARD, BANK_TRANSFER) | "CREDIT_CARD" |
+| lastPaymentId | String | No | Last payment transaction ID | "PAY-2025-002" |
+| lastPaymentDate | Timestamp | No | Last payment date | "2025-11-30T10:30:00Z" |
+| lastPaymentAmount | Double | No | Last payment amount | 100000.0 |
+| nextBillingDate | Timestamp | No | Next billing date | "2025-12-30T23:59:59Z" |
+| autoRenewal | Boolean | No | Auto-renewal enabled | true |
 
 #### Response
 **Status Code:** `200 OK`
@@ -382,7 +467,15 @@ All fields are optional. Only include fields you want to update.
   "avatarUrl": "https://example.com/new-avatar.jpg",
   "phoneNumber": "+1111111111",
   "address": "456 Oak Ave, New City, Country",
-  "membership": "false"
+  "subscriptionTier": "PREMIUM",
+  "subscriptionStatus": "ACTIVE",
+  "subscriptionExpiresAt": "2025-12-31T23:59:59Z",
+  "paymentMethod": "CREDIT_CARD",
+  "lastPaymentId": "PAY-2025-002",
+  "lastPaymentDate": "2025-11-30T10:30:00Z",
+  "lastPaymentAmount": 100000.0,
+  "nextBillingDate": "2025-12-30T23:59:59Z",
+  "autoRenewal": true
 }
 ```
 
@@ -421,6 +514,15 @@ All fields are optional. Only include fields you want to update.
 | avatarUrl | String | No | URL to user's avatar image | "https://example.com/new-avatar.jpg" |
 | phoneNumber | String | No | User's phone number | "+1111111111" |
 | address | String | No | User's physical address | "456 Oak Ave, New City, Country" |
+| subscriptionTier | String | No | Subscription tier (BASIC, PREMIUM, VIP) | "PREMIUM" |
+| subscriptionStatus | String | No | Subscription status (ACTIVE, GRACE, EXPIRED, CANCELLED) | "ACTIVE" |
+| subscriptionExpiresAt | Timestamp | No | Subscription expiration date | "2025-12-31T23:59:59Z" |
+| paymentMethod | String | No | Payment method (MOMO, CREDIT_CARD, BANK_TRANSFER) | "CREDIT_CARD" |
+| lastPaymentId | String | No | Last payment transaction ID | "PAY-2025-002" |
+| lastPaymentDate | Timestamp | No | Last payment date | "2025-11-30T10:30:00Z" |
+| lastPaymentAmount | Double | No | Last payment amount | 100000.0 |
+| nextBillingDate | Timestamp | No | Next billing date | "2025-12-30T23:59:59Z" |
+| autoRenewal | Boolean | No | Auto-renewal enabled | true |
 
 #### Response
 **Status Code:** `200 OK`
@@ -433,7 +535,44 @@ All fields are optional. Only include fields you want to update.
   "avatarUrl": "https://example.com/new-avatar.jpg",
   "phoneNumber": "+1111111111",
   "address": "456 Oak Ave, New City, Country",
-  "membership": "false"
+  "subscriptionTier": "PREMIUM",
+  "subscriptionStatus": "ACTIVE",
+  "subscriptionExpiresAt": "2025-12-31T23:59:59Z",
+  "paymentMethod": "CREDIT_CARD",
+  "lastPaymentId": "PAY-2025-002",
+  "lastPaymentDate": "2025-11-30T10:30:00Z",
+  "lastPaymentAmount": 100000.0,
+  "nextBillingDate": "2025-12-30T23:59:59Z",
+  "autoRenewal": true
+}
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| fullName | String | No | Full name of the user | "Jane Doe" |
+| avatarUrl | String | No | URL to user's avatar image | "https://example.com/new-avatar.jpg" |
+| phoneNumber | String | No | User's phone number | "+1111111111" |
+| address | String | No | User's physical address | "456 Oak Ave, New City, Country" |
+
+#### Response
+**Status Code:** `200 OK`
+
+```json
+{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "userId": "987e6543-e21b-12d3-a456-426614174000",
+  "fullName": "Jane Doe",
+  "avatarUrl": "https://example.com/new-avatar.jpg",
+  "phoneNumber": "+1111111111",
+  "address": "456 Oak Ave, New City, Country",
+  "subscriptionTier": "PREMIUM",
+  "subscriptionStatus": "ACTIVE",
+  "subscriptionExpiresAt": "2025-12-31T23:59:59Z",
+  "paymentMethod": "CREDIT_CARD",
+  "lastPaymentId": "PAY-2025-002",
+  "lastPaymentDate": "2025-11-30T10:30:00Z",
+  "lastPaymentAmount": 100000.0,
+  "nextBillingDate": "2025-12-30T23:59:59Z",
+  "autoRenewal": true
 }
 ```
 
@@ -467,133 +606,6 @@ No response body.
 
 ---
 
-### 9. Update Membership
-Updates the membership level for a user using AWS API Gateway header. Includes MoMo transaction ID for idempotency checking to prevent duplicate charges.
-
-- **URL:** `/api/user-info/membership`
-- **Method:** `PATCH`
-- **Headers:**
-  - `X-User-Id` (required): UUID of the user from AWS API Gateway
-  - `Content-Type`: `application/json`
-
-#### Request Body
-```json
-{
-  "membership": "VIP",
-  "momoTransId": "txn_abc123xyz789"
-}
-```
-
-#### Request Body Schema
-| Field | Type | Required | Description | Example |
-|-------|------|----------|-------------|---------|
-| membership | String | Yes | New membership type (BASIC, VIP, PREMIUM) | "VIP" |
-| momoTransId | String | Yes | MoMo transaction ID for idempotency | "txn_abc123xyz789" |
-
-#### Response
-**Status Code:** `200 OK`
-
-```json
-{
-  "id": "123e4567-e89b-12d3-a456-426614174000",
-  "userId": "987e6543-e21b-12d3-a456-426614174000",
-  "fullName": "John Doe",
-  "avatarUrl": "https://example.com/avatar.jpg",
-  "phoneNumber": "+1234567890",
-  "address": "123 Main St, City, Country",
-  "membership": "VIP"
-}
-```
-
-#### Error Responses
-| Status Code | Description |
-|------------|-------------|
-| 400 | Invalid input or transaction already processed |
-| 404 | User info not found |
-| 500 | Internal server error |
-
----
-
-### 10. Check Transaction Status
-Checks if a MoMo transaction has already been processed. Used for idempotency verification to prevent duplicate charges if the client retries the request.
-
-- **URL:** `/api/user-info/check-transaction/{momoTransId}`
-- **Method:** `GET`
-- **Path Parameters:**
-  - `momoTransId` (required): MoMo transaction ID to check
-
-#### Response (Transaction Found/Processed)
-**Status Code:** `200 OK`
-
-```json
-{
-  "momoTransId": "txn_abc123xyz789",
-  "processed": true,
-  "membership": "VIP",
-  "message": "Transaction already processed"
-}
-```
-
-#### Response (Transaction Not Found)
-**Status Code:** `200 OK`
-
-```json
-{
-  "momoTransId": "txn_abc123xyz789",
-  "processed": false,
-  "membership": null,
-  "message": "Transaction not found or pending"
-}
-```
-
-#### Response Schema
-| Field | Type | Description | Example |
-|-------|------|-------------|---------|
-| momoTransId | String | The transaction ID being checked | "txn_abc123xyz789" |
-| processed | Boolean | Whether this transaction was already processed | true or false |
-| membership | String | Current membership if processed, null otherwise | "VIP" or null |
-| message | String | Descriptive message | "Transaction already processed" |
-
-#### Error Responses
-| Status Code | Description |
-|------------|-------------|
-| 500 | Internal server error |
-
----
-
-## Data Models
-
-### MembershipUpdateRequest (Request Model for Endpoint 9)
-```json
-{
-  "membership": "string",
-  "momoTransId": "string"
-}
-```
-
-| Field | Type | Description |
-|-------|------|-------------|
-| membership | String | Membership level (BASIC, VIP, PREMIUM) |
-| momoTransId | String | MoMo transaction ID for idempotency |
-
-### TransactionCheckResponse (Response Model for Endpoint 10)
-```json
-{
-  "momoTransId": "string",
-  "processed": "boolean",
-  "membership": "string or null",
-  "message": "string"
-}
-```
-
-| Field | Type | Description |
-|-------|------|-------------|
-| momoTransId | String | Transaction ID being checked |
-| processed | Boolean | Whether transaction was processed |
-| membership | String | Current membership if processed |
-| message | String | Status message |
-
----
 
 ## Data Models
 
@@ -606,7 +618,15 @@ Checks if a MoMo transaction has already been processed. Used for idempotency ve
   "avatarUrl": "string or null",
   "phoneNumber": "string or null",
   "address": "string or null",
-  "membership": "string or null"
+  "subscriptionTier": "string",
+  "subscriptionStatus": "string",
+  "subscriptionExpiresAt": "timestamp or null",
+  "paymentMethod": "string or null",
+  "lastPaymentId": "string or null",
+  "lastPaymentDate": "timestamp or null",
+  "lastPaymentAmount": "double or null",
+  "nextBillingDate": "timestamp or null",
+  "autoRenewal": "boolean"
 }
 ```
 
@@ -618,7 +638,15 @@ Checks if a MoMo transaction has already been processed. Used for idempotency ve
 | avatarUrl | String | URL to user's avatar image |
 | phoneNumber | String | User's phone number |
 | address | String | User's physical address |
-| membership | String | Membership status of the user |
+| subscriptionTier | String | Subscription tier level (BASIC, PREMIUM, VIP) |
+| subscriptionStatus | String | Current subscription status (ACTIVE, GRACE, EXPIRED, CANCELLED) |
+| subscriptionExpiresAt | Timestamp | Subscription expiration date |
+| paymentMethod | String | Payment method used (MOMO, CREDIT_CARD, BANK_TRANSFER) |
+| lastPaymentId | String | Last payment transaction ID |
+| lastPaymentDate | Timestamp | Last payment date |
+| lastPaymentAmount | Double | Last payment amount |
+| nextBillingDate | Timestamp | Next billing date |
+| autoRenewal | Boolean | Auto-renewal enabled/disabled |
 
 ### UserInfoCreation (Request Model)
 ```json
@@ -626,7 +654,16 @@ Checks if a MoMo transaction has already been processed. Used for idempotency ve
   "fullName": "string",
   "avatarUrl": "string",
   "phoneNumber": "string",
-  "address": "string"
+  "address": "string",
+  "subscriptionTier": "string",
+  "subscriptionStatus": "string",
+  "subscriptionExpiresAt": "timestamp",
+  "paymentMethod": "string",
+  "lastPaymentId": "string",
+  "lastPaymentDate": "timestamp",
+  "lastPaymentAmount": "double",
+  "nextBillingDate": "timestamp",
+  "autoRenewal": "boolean"
 }
 ```
 
@@ -636,6 +673,15 @@ Checks if a MoMo transaction has already been processed. Used for idempotency ve
 | avatarUrl | String | URL to user's avatar image |
 | phoneNumber | String | User's phone number |
 | address | String | User's physical address |
+| subscriptionTier | String | Subscription tier (BASIC, PREMIUM, VIP) |
+| subscriptionStatus | String | Subscription status (ACTIVE, GRACE, EXPIRED, CANCELLED) |
+| subscriptionExpiresAt | Timestamp | Subscription expiration date |
+| paymentMethod | String | Payment method (MOMO, CREDIT_CARD, BANK_TRANSFER) |
+| lastPaymentId | String | Last payment transaction ID |
+| lastPaymentDate | Timestamp | Last payment date |
+| lastPaymentAmount | Double | Last payment amount |
+| nextBillingDate | Timestamp | Next billing date |
+| autoRenewal | Boolean | Auto-renewal enabled |
 
 ---
 
@@ -733,21 +779,6 @@ curl -X PATCH "http://localhost:8081/api/user-info/123e4567-e89b-12d3-a456-42661
 curl -X DELETE "http://localhost:8081/api/user-info/123e4567-e89b-12d3-a456-426614174000"
 ```
 
-### Updating Membership with cURL (Idempotency)
-```bash
-curl -X PATCH "http://localhost:8081/api/user-info/membership" \
-  -H "Content-Type: application/json" \
-  -H "X-User-Id: 987e6543-e21b-12d3-a456-426614174000" \
-  -d '{
-    "membership": "VIP",
-    "momoTransId": "txn_abc123xyz789"
-  }'
-```
-
-### Checking Transaction Status with cURL
-```bash
-curl -X GET "http://localhost:8081/api/user-info/check-transaction/txn_abc123xyz789"
-```
 
 ---
 
@@ -775,11 +806,9 @@ For interactive API documentation, visit:
 | PUT | `/api/user-info/{id}` | None | Update user info (full) |
 | PATCH | `/api/user-info` | X-User-Id | Patch user info by User ID |
 | PATCH | `/api/user-info/{id}` | None | Patch user info by ID |
-| PATCH | `/api/user-info/membership` | X-User-Id | Update membership (with idempotency) |
-| GET | `/api/user-info/check-transaction/{momoTransId}` | None | Check transaction status |
 | DELETE | `/api/user-info/{id}` | None | Delete user info |
 
 ---
 
-*Last Updated: December 6, 2025*
+*Last Updated: December 7, 2025*
 
